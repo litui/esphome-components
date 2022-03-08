@@ -4,12 +4,14 @@
 
 ESPHome, happily, also supports [3rd party components](https://esphome.io/components/external_components.html).
 
-To add all my components to any of your ESPHome-configured devices, use the following syntax in your ESP32 device's .yaml file:
+To add all my components at the current release version to any of your ESPHome-configured devices, use the following syntax in your ESP32 device's .yaml file:
 
 ```yaml
 external_components:
-- source: github://litui/esphome-components@main
+- source: github://litui/esphome-components@v1.0.0
 ```
+
+To add the main development tree instead, replace `v1.0.0` with `main`.
 
 ## NeewerLight Support
 
@@ -39,7 +41,7 @@ To add only the NeewerLight support to your ESPHome instance (in case I add more
 
 ```yaml
 external_components:
-- source: github://litui/esphome-components@main
+- source: github://litui/esphome-components@v1.0.0
   components: [ neewerlight_ble, neewerlight ]
 ```
 
