@@ -261,6 +261,7 @@ void NeewerRGBCTLightOutput::write_state(light::LightState *state) {
   bool only_wb_changed = this->did_only_wb_change(color_temperature, white_brightness);
   bool rgb_is_zero = (red == 0.0 && green == 0.0) && blue == 0.0;
   bool wb_is_zero = white_brightness == 0.0;
+  bool nothing_changed = !rgb_changed && !ctwb_changed;
 
   // The following logic is to handle different message modes on the NW660RGB
   // in contention with the colour interlock mode which sets the inactive mode
@@ -278,6 +279,13 @@ void NeewerRGBCTLightOutput::write_state(light::LightState *state) {
         this->prepare_ctwb_msg(color_temperature, white_brightness);
       }
   } else {
+    if (nothing_changed && rgb_is_zero) {
+      // If nothing changed while in CTWB mode, the RGB values will
+      // end up all zero effectively turning off the light if sent.
+      // Instead bail and don't write anything to the light.
+      ESP_LOGD(TAG, "Nothing changed and RGB == 0, bailing.");
+      return;
+    }
     ESP_LOGD(TAG, "Executing RGB fallback.");
     // Default to setting RGB if for whatever reason both are non-zero, or both
     // are zero without having triggered a change.
