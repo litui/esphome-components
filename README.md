@@ -8,10 +8,10 @@ To add all my components at the current release version to any of your ESPHome-c
 
 ```yaml
 external_components:
-- source: github://litui/esphome-components@v1.0.0
+- source: github://litui/esphome-components@v1.0.1
 ```
 
-To add the main development tree instead, replace `v1.0.0` with `main`.
+To add the main development tree instead, replace `v1.0.1` with `main`.
 
 ## NeewerLight Support
 
